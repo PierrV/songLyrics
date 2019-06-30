@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Home Page</title>
+{% extends 'base.html.twig' %}
 
-    </head>
-    <body>
-        <div class = "navbar">{{ navtext }}</div>
+    {% block body %}
 
-        <h1 align="center">{{ message }}</h1>
 
-    </body>
-</html>
+
+        <div class = "jumbotron text-center">
+            <h1 id="titre1" align="center">Wellcome to my HomePage</h1>
+            <p>Ce site vous permettra de visualiser vos songs préférés et leur lyrics</p>
+        </div>
+    {% endblock %}
