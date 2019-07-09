@@ -5,7 +5,8 @@
 
 homepage:
     path: /
-    controller: App\Controller\HomePageController::Wellcoming
+    controller: App\Controller\HomePageController::Welcoming
+
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

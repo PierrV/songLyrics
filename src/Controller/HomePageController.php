@@ -19,10 +19,11 @@ class HomePageController //extends AbstractController
         $this -> twig = $twig ;
     }
 
-    public function wellcoming():Response
+    public function welcoming():Response
     {
 
         return new Response($this->twig->render('Home/homepage.html.twig'));
 
     }
+
 }
