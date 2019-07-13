@@ -9,21 +9,18 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     {% endif %}
 
-    <div class="input-group form-group">
-        <label for="username">{{ 'security.login.username'|trans }}</label>
-        <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
+    <div class="form-group">
+        <input  id="username" name="_username"  class="form-control" placeholder="Your Username *"  type="text" value="{{ last_username }}" required="required" autocomplete="username" />
     </div>
     <div class="input-group form-group">
-        <label for="password">{{ 'security.login.password'|trans }}</label>
-        <input class="form-control" type="password" id="password" name="_password" required="required" autocomplete="current-password" />
-    </div>
-
-    <div class="row align-items-center remember">
-        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+        <input id="password" name="_password"  class="form-control"  placeholder="Your Password *" type="password"  required="required" autocomplete="current-password" />
     </div>
 
     <div class="form-group">
-        <input class="btn float-right login_btn" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+        <input id="_submit" name="_submit" class="btnSubmit" type="submit" value="{{ 'security.login.submit'|trans }}" />
+    </div>
+
+    <div class="form-group">
+        <a href="{{ path("fos_user_resetting_request") }}" class="btnForgetPwd" value="password_forget">Forget Password?</a>
     </div>
 </form>
