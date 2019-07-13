@@ -22,23 +22,49 @@ class ElasticsearchController extends AbstractController
     }
 
     /**
-     * @Route("/search/{lyric}", methods={"GET", "HEAD"})
-     * @param $lyric
+     * @Route("/search", methods={"GET", "HEAD"})
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function search($lyric){
+    public function search()
+    {
+        if (isset($_GET['lyric'])) {
+            $this->open();
+            $value = htmlentities($_GET['lyric']);
+            try {
+                $response = $this->repository->search($value);
+            } catch (NoNodesAvailableException $no_node_alive) {
+                $this->close();
+                return $this->render('erreur.html.twig', ['erreur1' => "THE DATABASE", 'erreur2' => "WAS NOT FOUND"]);
+            }
+            return $this->render('song/query.html.twig', ['result' => $response['hits']['hits']]);
+
+        } else {
+            return $this->render('song/query.html.twig');
+        }
+    }
+/*
+    /**
+     * @Route("/search", methods={"GET", "HEAD"})
+     */ /*
+    public function searchAll(){
         $this->open();
-        $value = htmlentities($lyric);
         try {
-            $response = $this->repository->search($value);
+            $response = $this->repository->searchAll();
         } catch (NoNodesAvailableException $no_node_alive){
             $this->close();
             return $this->render('erreur.html.twig', ['erreur1' => "THE DATABASE", 'erreur2' => "WAS NOT FOUND"]);
         }
-        var_dump($response["hits"]["hits"]);
-        die();
-        $this->close();
-        return $this->render('Home/homepage.html.twig');
+
+        $i = 0;
+
+        foreach ($response['hits']['hits'] as $result){
+            $data[$i] = $result['_source'];
+            $i++;
+        }
+
+        return $this->render('song/query.html.twig', ['result' => $data]);
     }
+    */
 
     public function open(){
         try {

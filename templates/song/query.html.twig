@@ -1,17 +1,113 @@
-{% extends 'base.html.twig' %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-    {% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Awesome Search Box</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style type="text/css">
 
-        <div class="body"></div>
-        <div class="grad"></div>
-        <div class="header">
-            <div>Songs<span>Lyrics</span></div>
+        body,html{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background: #e74c3c !important;
+        }
+
+        .searchbar{
+            margin-bottom: auto;
+            margin-top: auto;
+            height: 60px;
+            background-color: #353b48;
+            border-radius: 30px;
+            padding: 10px;
+        }
+
+        .resultarea{
+            margin-bottom: auto;
+            margin-top: auto;
+            height: 100%;
+            background-color: #353b48;
+            border-radius: 30px;
+            padding: 10px;
+        }
+
+        .area_input{
+            color: white;
+            border: 0;
+            outline: 0;
+            background: none;
+            width: 100%;
+            height: 100%;
+            caret-color:transparent;
+            line-height: 40px;
+            transition: width 0.4s linear;
+        }
+
+        .search_input{
+            color: white;
+            border: 0;
+            outline: 0;
+            background: none;
+            width: 0;
+            caret-color:transparent;
+            line-height: 40px;
+            transition: width 0.4s linear;
+        }
+
+        .searchbar:hover > .search_input{
+            padding: 0 10px;
+            width: 450px;
+            caret-color:red;
+            transition: width 0.4s linear;
+        }
+
+        .searchbar:hover > .search_icon{
+            background: white;
+            color: #e74c3c;
+        }
+
+        .search_icon{
+            height: 40px;
+            width: 40px;
+            float: right;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color:white;
+        }
+    </style>
+</head>
+<!-- Coded with love by Mutiullah Samim-->
+<body>
+<div class="container h-100">
+    <div class="justify-content-center h-100" style="margin-top:20px" >
+        <form action="{{ path('app_elasticsearch_search') }}" method="get">
+            <div class="searchbar">
+                <input name="lyric" class="search_input" type="text" placeholder="Search...">
+                <a class="search_icon"><i class="fas fa-search"><button hidden type="submit"></button>
+                    </i></a>
+            </div>
+        </form>
+
+        <div class="resultarea" style="margin-top:30px">
+            <p class="area_input" style="overflow: scroll">
+                {% if result is defined %}
+                    {% for field in result %}
+                        {% if field._source.author is defined %} {{ field._source.author }} <br> {% endif %}
+                        {% if field._source.title is defined %} {{ field._source.title }}  <br> {% endif %}
+                        {% if field._source.content is defined %} {{ field._source.content }} <br> {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </p>
         </div>
-        <br>
-        <div class="login">
-            <input type="text" placeholder="username" name="user"><br>
-            <input type="password" placeholder="password" name="password"><br>
-            <input type="button" value="Login">
-        </div>
-
-    {% endblock %}
+    </div>
+</div>
+</body>
+</html>

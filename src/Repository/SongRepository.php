@@ -19,7 +19,7 @@ class SongRepository
         $json = '{
         "query" : {
                 "match_phrase" : {
-                    "author" :  "'.$value.'"
+                    "content" :  "'.$value.'"
                  }
             }
         }';
@@ -30,6 +30,23 @@ class SongRepository
                 'body' => $json
             ]
     );
+
+    }
+
+    public function searchAll()
+    {
+        $json = '{
+        "query" : {
+                "match_all": {}
+            }
+        }';
+
+        return $this->client->search(
+            [
+                'index' => 'lyrics',
+                'body' => $json
+            ]
+        );
 
     }
 
