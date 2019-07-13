@@ -19,7 +19,7 @@ class SongRepository
         $json = '{
         "query" : {
                 "match_phrase" : {
-                    "content" :  "'.$value.'"
+                    "author" :  "'.$value.'"
                  }
             }
         }';

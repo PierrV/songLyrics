@@ -34,6 +34,8 @@ class ElasticsearchController extends AbstractController
             $this->close();
             return $this->render('erreur.html.twig', ['erreur1' => "THE DATABASE", 'erreur2' => "WAS NOT FOUND"]);
         }
+        var_dump($response["hits"]["hits"]);
+        die();
         $this->close();
         return $this->render('Home/homepage.html.twig');
     }
