@@ -80,17 +80,18 @@
         {% endblock %}
     </head>
     <body>
+        {% block bodyProfile %}{% endblock %}
 
-    <div class="container login-container">
-        <div class="row">
-            <div class="offset-md-3 col-md-6 login-form-2">
-                <div class="login-logo">
-                    <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+        <div class="container login-container">
+            <div class="row">
+                <div class="offset-md-3 col-md-6 login-form-2">
+                    <div class="login-logo">
+                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                    </div>
+                    {% block body %}{% endblock %}
                 </div>
-                {% block body %}{% endblock %}
             </div>
         </div>
-    </div>
 
     </body>
 </html>
