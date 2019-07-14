@@ -42,3 +42,11 @@ services:
         resource: '../src/UserBundle/Form/Type'
         tags: [form.type]
         arguments: {$class: 'App\Entity\User'}
+
+    App\Security\:
+        resource: '../src/Security'
+        tags: ['controller.service_arguments']
+
+    redirect.after.login:
+        class: App\Security\AfterLoginRedirection
+        arguments: ['@router']
