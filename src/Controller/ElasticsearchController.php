@@ -37,15 +37,58 @@ class ElasticsearchController extends AbstractController
                 return $this->render('erreur.html.twig', ['erreur1' => "THE DATABASE", 'erreur2' => "WAS NOT FOUND"]);
             }
             return $this->render('song/query.html.twig', ['result' => $response['hits']['hits']]);
+        } else {
+            return $this->render('song/query.html.twig');
+        }
+    }
+
+    /**
+     * @Route("/searchauthor/{author}", methods={"GET", "HEAD"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchAuthor($author)
+    {
+        if (isset($author)) {
+            $this->open();
+            $value = htmlentities($author);
+            try {
+                $response = $this->repository->searchAuthor($value);
+            } catch (NoNodesAvailableException $no_node_alive) {
+                $this->close();
+                return $this->render('erreur.html.twig', ['erreur1' => "THE DATABASE", 'erreur2' => "WAS NOT FOUND"]);
+            }
+            return $this->render('song/query.html.twig', ['result' => $response['hits']['hits']]);
 
         } else {
             return $this->render('song/query.html.twig');
         }
     }
-/*
+
     /**
-     * @Route("/search", methods={"GET", "HEAD"})
-     */ /*
+     * @Route("/getLyric/{id}", methods={"GET", "HEAD"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getLyric($id)
+    {
+        if (isset($id)) {
+            $this->open();
+            $value = htmlentities($id);
+            try {
+                $response = $this->repository->searchLyric($value);
+            } catch (NoNodesAvailableException $no_node_alive) {
+                $this->close();
+                return $this->render('erreur.html.twig', ['erreur1' => "THE DATABASE", 'erreur2' => "WAS NOT FOUND"]);
+            }
+            return $this->render('song/show.html.twig', ['field' => $response]);
+
+        } else {
+            return $this->render('song/query.html.twig');
+        }
+    }
+
+    /**
+     * @Route("/searchAll", methods={"GET", "HEAD"})
+     */
     public function searchAll(){
         $this->open();
         try {
@@ -58,13 +101,12 @@ class ElasticsearchController extends AbstractController
         $i = 0;
 
         foreach ($response['hits']['hits'] as $result){
-            $data[$i] = $result['_source'];
+            $data[$i] = $result;
             $i++;
         }
 
         return $this->render('song/query.html.twig', ['result' => $data]);
     }
-    */
 
     public function open(){
         try {

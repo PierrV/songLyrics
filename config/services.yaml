@@ -24,3 +24,14 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    app_elasticsearch_getlyric:
+        class: App\Controller\ElasticsearchController
+        tags: ['controller.service_arguments']
+        arguments:
+            - { id: 'id' }
+
+    app_elasticsearch_searchauthor:
+        class: App\Controller\ElasticsearchController
+        tags: ['controller.service_arguments']
+        arguments:
+            - { author: 'author' }

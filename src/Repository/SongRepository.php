@@ -17,11 +17,14 @@ class SongRepository
     public function search($value)
     {
         $json = '{
-        "query" : {
-                "match_phrase" : {
-                    "content" :  "'.$value.'"
-                 }
+        "query": {
+            "dis_max": {
+              "queries": [
+                { "match_phrase_prefix": { "content": "'.$value.'" }},
+                { "match_phrase_prefix": { "author": "'.$value.'" }}
+              ]
             }
+          }
         }';
 
         return $this->client->search(
@@ -32,6 +35,38 @@ class SongRepository
     );
 
     }
+
+    public function searchAuthor($value)
+    {
+        $json = '{
+        "query" : {
+                "match" : {
+                    "author" :  "'.$value.'"
+                 }
+            }
+        }';
+
+        return $this->client->search(
+            [
+                'index' => 'lyrics',
+                'body' => $json
+            ]
+        );
+
+    }
+
+    public function searchLyric($value)
+    {
+
+        return $this->client->get(
+            [
+                'index' => 'lyrics',
+                'id' => $value
+            ]
+        );
+
+    }
+
 
     public function searchAll()
     {
