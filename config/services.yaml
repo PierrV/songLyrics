@@ -7,6 +7,8 @@ parameters:
     locale: 'en'
 
 services:
+
+
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -35,3 +37,8 @@ services:
         tags: ['controller.service_arguments']
         arguments:
             - { author: 'author' }
+
+    App\UserBundle\Form\Type\:
+        resource: '../src/UserBundle/Form/Type'
+        tags: [form.type]
+        arguments: {$class: 'App\Entity\User'}
