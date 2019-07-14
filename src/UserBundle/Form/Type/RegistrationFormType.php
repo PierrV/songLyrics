@@ -39,14 +39,24 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
-            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
+
+            ->add('email', EmailType::class, array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle',
+                'attr' => array(
+                    'class' => "form-control","placeholder" => "Your email *", "type"=>"email",  "required"=>"required",
+                )
+            ))
+            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle',
+                'attr' => array(
+                    'class' => "form-control","placeholder" => "Your username *", "type"=>"username",  "required"=>"required",
+                )
+            ))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'options' => array(
                     'translation_domain' => 'FOSUserBundle',
                     'attr' => array(
                         'autocomplete' => 'new-password',
+                        'class' => "form-control","placeholder" => "Your password *", "type"=>"password",  "required"=>"required"
                     ),
                 ),
                 'first_options' => array('label' => 'form.password'),

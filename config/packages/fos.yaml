@@ -8,3 +8,7 @@ fos_user:
   change_password:
     form:
       type: App\UserBundle\Form\Type\ChangePasswordFormType
+
+  registration:
+    form:
+      type: App\UserBundle\Form\Type\RegistrationFormType
