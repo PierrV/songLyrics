@@ -12,3 +12,8 @@ fos_user:
   registration:
     form:
       type: App\UserBundle\Form\Type\RegistrationFormType
+    confirmation:
+      enabled: false
+      from_email:
+        address: baousmaneaymerou@gmail.com
+        sender_name: Song Lyrics

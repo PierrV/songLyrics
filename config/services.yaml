@@ -30,3 +30,4 @@ services:
         resource: '../src/UserBundle/Form/Type'
         tags: [form.type]
         arguments: {$class: 'App\Entity\User'}
+
