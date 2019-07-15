@@ -1,0 +1,8 @@
+easy_admin:
+    site_name: 'Songs Lyrics.'
+    entities:
+        User:
+            class: App\Entity\User
+            label: 'User'
+            list:
+                title: "Gestion des utilisateurs"
