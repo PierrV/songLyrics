@@ -79,10 +79,19 @@ class SongRepository
         return $this->client->search(
             [
                 'index' => 'lyrics',
-                'body' => $json
+                'id' => $json
             ]
         );
 
+    }
+
+    public function deleteLyric($id){
+        return $this->client->delete(
+            [
+                'index' => 'lyrics',
+                'id' => $id
+            ]
+        );
     }
 
 }

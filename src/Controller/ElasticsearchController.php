@@ -36,7 +36,8 @@ class ElasticsearchController extends AbstractController
                 $this->close();
                 return $this->render('erreur.html.twig', ['erreur1' => "THE DATABASE", 'erreur2' => "WAS NOT FOUND"]);
             }
-            return $this->render('song/query.html.twig', ['result' => $response['hits']['hits']]);
+            $this->close();
+            return $this->render('song/query.html.twig', ['result' => $response['hits']['hits'], 'search' => $value]);
         } else {
             return $this->render('song/query.html.twig');
         }
@@ -57,7 +58,8 @@ class ElasticsearchController extends AbstractController
                 $this->close();
                 return $this->render('erreur.html.twig', ['erreur1' => "THE DATABASE", 'erreur2' => "WAS NOT FOUND"]);
             }
-            return $this->render('song/query.html.twig', ['result' => $response['hits']['hits']]);
+            $this->close();
+            return $this->render('song/query.html.twig', ['result' => $response['hits']['hits'], 'search' => $value]);
 
         } else {
             return $this->render('song/query.html.twig');
@@ -79,6 +81,7 @@ class ElasticsearchController extends AbstractController
                 $this->close();
                 return $this->render('erreur.html.twig', ['erreur1' => "THE DATABASE", 'erreur2' => "WAS NOT FOUND"]);
             }
+            $this->close();
             return $this->render('song/show.html.twig', ['field' => $response]);
 
         } else {
@@ -99,7 +102,7 @@ class ElasticsearchController extends AbstractController
         }
 
         $i = 0;
-
+        $this->close();
         foreach ($response['hits']['hits'] as $result){
             $data[$i] = $result;
             $i++;
@@ -124,8 +127,49 @@ class ElasticsearchController extends AbstractController
         $this->client = null;
     }
 
+    /**
+     * @Route("/admin/deleteSong/{id}", methods={"GET", "HEAD"})
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteSong($id){
+        if (isset($id)) {
+            $this->open();
+            try {
+                $response = $this->repository->deleteLyric($id);
+            } catch (NoNodesAvailableException $no_node_alive) {
+                $this->close();
+                return $this->render('erreur.html.twig', ['erreur1' => "THE DATABASE", 'erreur2' => "WAS NOT FOUND"]);
+            }
+            $this->close();
+            return $this->redirectToRoute("app_elasticsearch_search", ['lyric' => $_GET['search']]);
 
+        } else {
+            return $this->render('song/query.html.twig');
+        }
+    }
 
+    /**
+     * @Route("/admin/editSong/{id}", methods={"GET", "HEAD"})
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editSong($id){
+        if (isset($id)) {
+            $this->open();
+            $value = htmlentities($id);
+            try {
+                $response = $this->repository->searchLyric($value);
+            } catch (NoNodesAvailableException $no_node_alive) {
+                $this->close();
+                return $this->render('erreur.html.twig', ['erreur1' => "THE DATABASE", 'erreur2' => "WAS NOT FOUND"]);
+            }
+            return $this->render('song/edit.html.twig', ['field' => $response]);
+
+        } else {
+            return $this->render('song/query.html.twig');
+        }
+    }
 
 
 }
