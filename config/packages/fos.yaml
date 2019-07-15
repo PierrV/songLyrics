@@ -13,7 +13,7 @@ fos_user:
     form:
       type: App\UserBundle\Form\Type\RegistrationFormType
     confirmation:
-      enabled: false
+      enabled: true
       from_email:
-        address: baousmaneaymerou@gmail.com
+        address: groupworking2k9@gmail.com
         sender_name: Song Lyrics
