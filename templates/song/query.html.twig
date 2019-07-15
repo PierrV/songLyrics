@@ -38,8 +38,8 @@
     </ul>
 </div>
 
-<div class="container h-100">
-    <div class="justify-content-center h-100" style="margin-top:20px" >
+<div class="container h-100 col-12">
+    <div class="justify-content-center h-100 col-12" style="margin-top:20px" >
         <form action="{{ path('app_elasticsearch_search') }}" method="get">
             <div class="searchbar">
                 <input name="lyric" class="search_input" type="text" placeholder="Search...">
@@ -47,10 +47,10 @@
                     </i></a>
             </div>
         </form>
-            <div class=" resultarea" style="margin-top:30px">
+            <div class=" resultarea container" style="margin-top:30px">
                 <div class="scrollbar scrollbar-primary scrollbar-warning resultarea" style="height: 100%; margin-left: 0%; width: 100%; ">
-            <div class="area_input">
-                    <table class="force-overflow" style="width: 100%;border-radius: 30px ">
+            <div class="area_input container force-overflow">
+                    <table style="width: 100%;border-radius: 30px; ">
                         <thead>
                             <tr>
                                 <th>Author</th>
