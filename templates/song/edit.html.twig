@@ -1,0 +1,61 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Awesome Search Box</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+</head>
+<!-- Coded with love by Mutiullah Samim-->
+<body>
+<div class="container h-100">
+    <div class="justify-content-center h-100" style="margin-top:20px" >
+        <form action="{{ path('app_elasticsearch_search') }}" method="get">
+            <div class="searchbar">
+                <input name="lyric" class="search_input" type="text" placeholder="Search...">
+                <a class="search_icon"><i class="fas fa-search"><button hidden type="submit"></button>
+                    </i></a>
+            </div>
+        </form>
+            <div class=" resultarea" style="margin-top:30px">
+                <div class="scrollbar scrollbar-primary scrollbar-warning resultarea" style="height: 100%; margin-left: 0%; width: 100%">
+            <table class=" force-overflow area_input" >
+                {% if field is defined %}
+                        <tr style="vertical-align:100%; font-size: 70px; text-align: center">
+                            <td>
+                                <a href="{{ path('app_elasticsearch_searchauthor', {'author': field._source.author}) }}"> {% if field._source.author is defined %} {{ field._source.author }} </a> {% else %} - {% endif %}
+                            </td>
+                        </tr>
+                        <tr style="vertical-align:100%; font-size: 50px; text-align: center">
+                            <td>
+                               <p> {% if field._source.title is defined %} {{ field._source.title }} </p> {% else %} - {% endif %}
+                            </td>
+                        </tr>
+                        <tr style="vertical-align:100%; font-size: 20px; text-align: center">
+                            <td>
+                                <p> {% if field._source.year is defined %} {{ field._source.year }} </p> {% else %} - {% endif %}
+                            </td>
+                        </tr>
+                        <tr style="vertical-align:100%; font-size: 30px; text-align: center">
+                            <td>
+                                <p> {% if field._source.collection is defined %} {{ field._source.collection }} </p> {% else %} - {% endif %}
+                            </td>
+                        </tr>
+                        <tr style="line-height: 1.2;vertical-align:100%; font-size: 15px; text-align: justify; font-family: sans-serif">
+                            <td>
+                                <p> {% if field._source.content is defined %} {{ field._source.content |nl2br }} </p> {% else %} - {% endif %}
+                            </td>
+                        </tr>
+                {% endif %}
+            </table>
+                </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

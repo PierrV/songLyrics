@@ -93,6 +93,9 @@
     "egulias/email-validator": {
         "version": "2.1.8"
     },
+    "elasticsearch/elasticsearch": {
+        "version": "v7.1.0"
+    },
     "facebook/webdriver": {
         "version": "1.7.1"
     },
@@ -101,6 +104,12 @@
     },
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
+    },
+    "guzzlehttp/ringphp": {
+        "version": "1.1.1"
+    },
+    "guzzlehttp/streams": {
+        "version": "3.0.0"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
@@ -138,17 +147,8 @@
     "psr/log": {
         "version": "1.1.0"
     },
-    "sensio/framework-extra-bundle": {
-        "version": "5.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "5.2",
-            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
-        },
-        "files": [
-            "./config/packages/sensio_framework_extra.yaml"
-        ]
+    "react/promise": {
+        "version": "v2.7.1"
     },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Page Administrateur</h2>
+                    <p>
+                        <a href="#" class="btn btn-squared-default btn-primary">
+                            <i class="fa fa-key fa-5x"></i>
+                            <br />
+                            Gestion des
+                            <br />
+                            Utilisateurs
+                        </a>
+                        <a href="{{ path('app_elasticsearch_search') }}" class="btn btn-squared-default btn-info">
+                            <i class="fa fa-bell fa-5x"></i>
+                            <br />
+                            Gestion de la
+                            <br />
+                            Musique
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+        <style>
+            .btn-squared-default
+            {
+                width: 100px !important;
+                height: 100px !important;
+                font-size: 10px;
+            }
+
+            .btn-squared-default:hover
+            {
+                border: 3px solid white;
+                font-weight: 800;
+            }
+
+            .btn-squared-default-plain
+            {
+                width: 100px !important;
+                height: 100px !important;
+                font-size: 10px;
+            }
+
+            .btn-squared-default-plain:hover
+            {
+                border: 0px solid white;
+            }
+        </style>
+
+    {% endblock %}

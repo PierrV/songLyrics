@@ -9,3 +9,7 @@ homepage:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+admin:
+    path: /admin
+    controller: App\Controller\AdminController::admin

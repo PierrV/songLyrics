@@ -26,8 +26,28 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    app_elasticsearch_getlyric:
+        class: App\Controller\ElasticsearchController
+        tags: ['controller.service_arguments']
+        arguments:
+            - { id: 'id' }
+
+    app_elasticsearch_searchauthor:
+        class: App\Controller\ElasticsearchController
+        tags: ['controller.service_arguments']
+        arguments:
+            - { author: 'author' }
+
     App\UserBundle\Form\Type\:
         resource: '../src/UserBundle/Form/Type'
         tags: [form.type]
         arguments: {$class: 'App\Entity\User'}
+
+    App\Security\:
+        resource: '../src/Security'
+
+    redirect.after.login:
+        class: App\Security\AfterLoginRedirection
+        arguments: ['@router']
+        tags: ['controller.service_arguments']
 
