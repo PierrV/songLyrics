@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use \Symfony\Component\HttpFoundation\Response;
 use Twig\Environment ;
-//use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Authorization\Voter;
 //use Symfony\Component\Routing\Annotation\Route;
-//use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class HomePageController //extends AbstractController
+class HomePageController extends AbstractController
 {
 
     /**
@@ -22,8 +23,6 @@ class HomePageController //extends AbstractController
 
     public function wellcoming():Response
     {
-
-        return new Response($this->twig->render('Home/homepage.html.twig'));
-
+            return $this->redirectToRoute('fos_user_security_login');
     }
 }
