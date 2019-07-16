@@ -9,6 +9,8 @@ fos_user:
     form:
       type: App\UserBundle\Form\Type\ChangePasswordFormType
 
+
+
   registration:
     form:
       type: App\UserBundle\Form\Type\RegistrationFormType
