@@ -10,7 +10,7 @@
                 <li><a href="{{ path('admin') }}">Home<span class="sub_icon glyphicon glyphicon-home"></span></a></li>
                 <li><a href="{{ path('app_elasticsearch_search') }}">Search<span class="sub_icon glyphicon glyphicon-search"></span></a></li>
                 <li><a href="{{ path('app_elasticsearch_addsong') }}">Add<span class="sub_icon glyphicon glyphicon-plus"></span></a></li>
-                <li><a href="{{ path('easyadmin') }}">User manager<span class="sub_icon glyphicon glyphicon-off"></span></a></li>
+                <li><a href="{{ path('easyadmin') }}">User<span class="sub_icon glyphicon glyphicon-user"></span></a></li>
                 <li><a href="{{ path('fos_user_security_logout') }}">Logout<span class="sub_icon glyphicon glyphicon-off"></span></a></li>
             {% elseif is_granted('ROLE_USER') %}
                 <li><a href="{{ path('app_elasticsearch_search') }}">Search<span class="sub_icon glyphicon glyphicon-search"></span></a></li>
