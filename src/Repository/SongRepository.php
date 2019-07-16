@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use Elasticsearch\Client;
+use phpDocumentor\Reflection\Types\Integer;
 
 class SongRepository
 {
@@ -55,35 +56,18 @@ class SongRepository
 
     }
 
-    public function searchLyric($value)
+    public function searchLyric($id)
     {
 
         return $this->client->get(
             [
                 'index' => 'lyrics',
-                'id' => $value
+                'id' => $id
             ]
         );
 
     }
 
-
-    public function searchAll()
-    {
-        $json = '{
-        "query" : {
-                "match_all": {}
-            }
-        }';
-
-        return $this->client->search(
-            [
-                'index' => 'lyrics',
-                'id' => $json
-            ]
-        );
-
-    }
 
     public function deleteLyric($id){
         return $this->client->delete(
@@ -92,6 +76,38 @@ class SongRepository
                 'id' => $id
             ]
         );
+    }
+
+    public function updateSong($id, $data){
+        var_dump($data);
+        $json = [
+            'index' => 'lyrics',
+            'id' => $id,
+            'body' => [
+                    'author' => $data['author'],
+                    'title' => $data['title'],
+                    'year' => $data['year'],
+                    'collection' => $data['collection'],
+                    'content' => $data['content'],
+            ]
+        ];
+
+        return $this->client->update($json);
+    }
+
+    public function addSong($data){
+        $json = [
+            'index' => 'lyrics',
+            'body' => [
+                    'author' => strval($data['author']),
+                    'title' => $data['title'],
+                    'year' => intval($data['year']),
+                    'collection' => $data['collection'],
+                    'content' => $data['content'],
+            ]
+        ];
+
+        return $this->client->index($json);
     }
 
 }

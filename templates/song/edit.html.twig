@@ -17,64 +17,60 @@
 <body>
 
 <div id="wrapper" class="">
-    <div id="sidebar-wrapper">
-        <ul id="sidebar_menu" class="sidebar-nav">
-            <li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
-        </ul>
-        <ul class="sidebar-nav" id="sidebar">
-            {% if is_granted('ROLE_ADMIN') %}
-                <li><a href="{{ path('admin') }}">Home<span class="sub_icon glyphicon glyphicon-off"></span></a></li>
-                <li><a href="{{ path('app_elasticsearch_search') }}">Search<span class="sub_icon glyphicon glyphicon-search"></span></a></li>
-                <li><a href="{{ path('fos_user_security_logout') }}">Logout<span class="sub_icon glyphicon glyphicon-off"></span></a></li>
-            {% elseif is_granted('ROLE_USER') %}
-                <li><a href="{{ path('app_elasticsearch_search') }}">Search<span class="sub_icon glyphicon glyphicon-search"></span></a></li>
-                <li><a href="{{ path('fos_user_profile_show') }}">My profile<span class="sub_icon glyphicon glyphicon-user"></span></a></li>
-                <li><a href="{{ path('fos_user_security_logout') }}">Logout<span class="sub_icon glyphicon glyphicon-off"></span></a></li>
-            {% else %}
-                <li><a href="{{ path('fos_user_security_login') }}">Login<span class="sub_icon glyphicon glyphicon-off"></span></a></li>
-            {% endif %}
-        </ul>
-    </div>
+
+ {% include 'navigation.html.twig' %}
 
 <div class="container h-100">
     <div class="justify-content-center h-100" style="margin-top:20px" >
         <form action="{{ path('app_elasticsearch_search') }}" method="get">
             <div class="searchbar">
-                <input name="lyric" class="search_input" type="submit" placeholder="Search...">
+                <input name="lyric" class="search_input" type="text" placeholder="Search...">
                 <a class="search_icon"><i class="fas fa-search"><button hidden type="submit"></button>
                     </i></a>
             </div>
         </form>
-        <form action="" method="">
+        <form action="{{ path('app_elasticsearch_editsongconfirm') }}" method="post">
+            <input name="id" hidden value="{% if field._source.author is defined %}{{ id }}{% endif %}">  </input>
             <div class=" resultarea" style="margin-top:30px">
                 <div class="scrollbar scrollbar-primary scrollbar-warning resultarea" style="height: 100%; margin-left: 0%; width: 100%">
-            <table class=" force-overflow area_input" >
+            <table style="horiz-align: center" class=" force-overflow area_input" >
                 {% if field is defined %}
                         <tr style="vertical-align:100%; font-size: 70px; text-align: center">
                             <td>
-                                <input  style="text-align: center" value="{% if field._source.author is defined %} {{ field._source.author }} {% else %} - {% endif %}">  </input>
+                                <input required name="author" placeholder="Author" style="text-align: center" value="{% if field._source.author is defined %}{{ field._source.author }}{% endif %}">
                             </td>
                         </tr>
                         <tr style="vertical-align:100%; font-size: 50px; text-align: center">
                             <td>
-                               <input  style="text-align: center" value="{% if field._source.title is defined %} {{ field._source.title }}  {% else %} - {% endif %}">  </input>
+                               <input required name="title" placeholder="Title" style="text-align: center" value="{% if field._source.title is defined %}{{ field._source.title }}{% endif %}">
                             </td>
                         </tr>
                         <tr style="vertical-align:100%; font-size: 20px; text-align: center">
                             <td>
-                                <input  style="text-align: center" value="{% if field._source.year is defined %} {{ field._source.year }} {% else %} - {% endif %}"> </input>
+                                <input required name="year" placeholder="Year" style="text-align: center" value="{% if field._source.year is defined %}{{ field._source.year }}{% endif %}">
                             </td>
                         </tr>
                         <tr style="vertical-align:100%; font-size: 30px; text-align: center">
                             <td>
-                                <input  style="text-align: center" value="{% if field._source.collection is defined %} {{ field._source.collection }}  {% else %} - {% endif %}"> </input>
+                                <input name="collection" placeholder="Collection" style="text-align: center" value="{% if field._source.collection is defined %}{{ field._source.collection }}{% endif %}">
                             </td>
                         </tr>
-                        <tr style="line-height: 1.2;vertical-align:100%; font-size: 15px; text-align: justify; font-family: sans-serif">
+
+                        <tr style="line-height: 1.2;vertical-align:100%; font-size: 15px; text-align: center; font-family: sans-serif">
                             <td>
-                             <!--    <p style="background-color: whitesmoke; color: black" contenteditable="true">{% if field._source.content is defined %} {{ field._source.content |nl2br }}  {% else %} - {% endif %}"> </p>
-                            -->
-                                <input  style="text-align: center"> <p>{% if field._source.content is defined %} {{ field._source.content }}  {% else %} - {% endif %}</p> </input>
+                                <label class="col-10" >
+                                    {% if field._source.content is defined %}
+                                        <textarea class="col-12" name="content" value="{{ field._source.content }}" style="text-align: left; height: 300px">{{ field._source.content }}</textarea>
+                                    {% else %}
+                                        <textarea name="content" class="col-12" style="height: 300px; text-align: left" > </textarea>
+                                    {% endif %}
+                                </label>
+                            </td>
+                        </tr>
+
+                        <tr style="vertical-align:100%; font-size: 30px; text-align: center">
+                            <td>
+                                <button class="btn-success col-10" type="submit">OK ! </button>
                             </td>
                         </tr>
                 {% endif %}
