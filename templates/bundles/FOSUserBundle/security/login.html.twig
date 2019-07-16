@@ -1,11 +1,9 @@
 {% extends "@FOSUser/layout.html.twig" %}
 
-{% block title %}Login Page{% endblock %}
+    {% block bodylogin %}
 
-{% block bodylogin %}
+        {% block fos_user_content %}
+            {{ include('@FOSUser/Security/login_content.html.twig') }}
+        {% endblock fos_user_content %}
 
-    {% block fos_user_content %}
-        {{ include('@FOSUser/Security/login_content.html.twig') }}
-    {% endblock fos_user_content %}
-
-{% endblock %}
+    {% endblock %}

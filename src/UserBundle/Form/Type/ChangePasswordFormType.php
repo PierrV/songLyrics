@@ -75,7 +75,7 @@ class ChangePasswordFormType extends AbstractType
                 'label' =>  false,
                 'attr' => array(
                     'autocomplete' => 'password-confirmation',
-                    'class' => "form-control","placeholder" => "Your New Password *", "type"=>"password",  "required"=>"required",
+                    'class' => "form-control","placeholder" => "Confirm Password *", "type"=>"password",  "required"=>"required",
                 ),
             ),
             'invalid_message' => 'fos_user.password.mismatch',
